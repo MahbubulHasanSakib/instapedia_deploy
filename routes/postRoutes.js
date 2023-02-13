@@ -5,8 +5,8 @@ const {isAuth}=require('../middlewares/authMiddleware')
 const {getPosts,postComments,createPost,likePost,getSingleUserPosts}=require('../controllers/postController')
 const multer=require('multer')
 const { v4: uuidv4 } = require('uuid')
-
-const storage=multer.diskStorage({
+const inMemoryStorage=multer.memoryStorage()
+/*const storage=multer.diskStorage({
     destination:(req,file,callback)=>{
         callback(null,"public/uploads")
     },
@@ -16,8 +16,9 @@ const storage=multer.diskStorage({
     }
 })
 
-const upload=multer({storage:storage});
+const upload=multer({storage:storage});*/
 
+const upload = multer({ storage: inMemoryStorage });
 
 router.get('/',isAuth,getPosts)
 router.get('/:uid',isAuth,getSingleUserPosts)

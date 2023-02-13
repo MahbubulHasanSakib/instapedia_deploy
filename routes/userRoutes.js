@@ -5,9 +5,10 @@ const {isAuth}=require('../middlewares/authMiddleware')
 const {login,register,userProfile,getAllUsers,updateProfile,showProfile
     ,isFollowed,followUnfollow,getFollowers,getFollowings}=require('../controllers/userController')
 const multer=require('multer')
+const inMemoryStorage=multer.memoryStorage()
 const { v4: uuidv4 } = require('uuid')
 
-const storage=multer.diskStorage({
+/*const storage=multer.diskStorage({
     destination:(req,file,callback)=>{
         callback(null,"public/uploads")
     },
@@ -17,7 +18,10 @@ const storage=multer.diskStorage({
     }
 })
 
-const upload=multer({storage:storage});
+const upload=multer({storage:storage}); */
+const upload = multer({ storage: inMemoryStorage });
+
+
 
 router.get('/',isAuth,getAllUsers)
 router.post('/login',login)

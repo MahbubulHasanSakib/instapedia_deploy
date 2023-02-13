@@ -2,6 +2,12 @@ const Post = require('../models/post')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/user')
 const Follow=require('../models/follow')
+const cloudinary=require('../utlis/cloudinary')
+const path=require('path')
+
+
+const DatauriParser=require("datauri/parser");
+const parser = new DatauriParser();
 
 const getPosts = asyncHandler(async (req, res) => {
     
@@ -51,8 +57,18 @@ const getPosts = asyncHandler(async (req, res) => {
 const createPost=asyncHandler(async(req,res)=>
 {
     const findUser=await User.findById(req.user._id)
-    const imagePath = String('/' + req.file.destination.split('/').slice(1) + '/' + req.file.filename);
-    console.log(imagePath)
+   // const imagePath = String('/' + req.file.destination.split('/').slice(1) + '/' + req.file.filename);
+   // console.log(imagePath)
+   const extName = path.extname(req.file.originalname).toString();
+                 const file64 = parser.format(extName, req.file.buffer);
+                 const result = await cloudinary.uploader.upload(file64.content,{
+                     uploads: "products",
+                     // width: 300,
+                     // crop: "scale"
+                     public_id: `${Date.now()}`,
+                     resource_type: "auto",
+                 })
+    const imagePath=result.secure_url;
     const newPost=new Post({
     postedUsername:req.user.username,
     postedUser:req.user.name,

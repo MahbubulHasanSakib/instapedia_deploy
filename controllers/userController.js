@@ -4,7 +4,12 @@ const Follow = require('../models/follow')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
+const cloudinary=require('../utlis/cloudinary')
+const path=require('path')
 
+
+const DatauriParser=require("datauri/parser");
+const parser = new DatauriParser();
 
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -146,9 +151,21 @@ const updateProfile = asyncHandler(async (req, res) => {
         }
         console.log(req.file)
         let imagePath = '';
-        if (req.file)
-            imagePath = String('/' + req.file.destination.split('/').slice(1) + '/' + req.file.filename);
-        user.name = req.body.name || user.name
+        if (req.file){
+            //imagePath = String('/' + req.file.destination.split('/').slice(1) + '/' + req.file.filename);
+        
+            const extName = path.extname(req.file.originalname).toString();
+                 const file64 = parser.format(extName, req.file.buffer);
+                 const result = await cloudinary.uploader.upload(file64.content,{
+                     uploads: "products",
+                     // width: 300,
+                     // crop: "scale"
+                     public_id: `${Date.now()}`,
+                     resource_type: "auto",
+                 })
+                imagePath=result.secure_url;
+        }
+            user.name = req.body.name || user.name
         user.password = user.password
         user.isAdmin = user.isAdmin
         user.email = user.email
