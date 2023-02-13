@@ -14,7 +14,7 @@ ul,li{
 
 main{
   background-color: rgba(var(--b3f,250,250,250),1);
-  padding:60px;
+  padding:60px 0px;
 }
 nav{
   background-color: rgba(var(--d87,255,255,255),1);
@@ -233,7 +233,7 @@ ul{
   align-items: center;
 }
 .content{
-  max-width: 40%;
+ 
   overflow-wrap:break-word ;
   padding: 1rem;
   font-size: 1.1rem;
@@ -241,9 +241,11 @@ ul{
 }
 .sended{
   justify-content: flex-end;
+ 
 }
 .received{
   justify-content: flex-start;
+  color:#4f7ca8!important;
 }
 
 .message .content p {
@@ -287,4 +289,11 @@ ul{
   border-radius: 50%;
     border: 3px solid #c64519;
     cursor:pointer;
+}
+
+@media(min-width:992px)
+{
+  .post{
+    width: 50%!important;
+  }
 }

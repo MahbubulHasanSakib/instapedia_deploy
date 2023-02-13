@@ -30,7 +30,7 @@ const Post = ({post}) => {
     navigate(`/friendsProfile/${post.postedUserId}`)
   }
   return (
-    <div className='post' style={{ width: '50%',margin:'15px auto 10px auto'}}>
+    <div className='post' style={{margin:'15px auto 10px auto'}}>
        <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
