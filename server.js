@@ -45,7 +45,7 @@ const server=app.listen(PORT,(err)=>
 
 const io=socket(server,{
     cors:{
-        origin:'http://localhost:8000',
+        origin:'https://instapedia-backend.onrender.com',
         credentials:'true'
     }
 })

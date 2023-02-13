@@ -37,7 +37,7 @@ const ChatScreen = () => {
   useEffect(()=>{
 if(userInfo)
 {
-    socket.current=io('http://localhost:8000')
+    socket.current=io('https://instapedia-backend.onrender.com')
     socket.current.emit("add-user",userInfo._id)
 }
   },[userInfo])
