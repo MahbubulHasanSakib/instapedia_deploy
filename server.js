@@ -7,11 +7,11 @@ const postRoutes=require('./routes/postRoutes')
 const userRoutes=require('./routes/userRoutes')
 const messageRoutes=require('./routes/messageRoutes')
 const storyRoutes=require('./routes/storyRoutes')
-const PORT=process.env.PORT||5000
-dotenv.config()
 
+dotenv.config()
 const app=express()
 const socket=require('socket.io')
+const PORT=process.env.PORT||5000
 
 app.use(cors())
 app.use(express.static(path.join(__dirname,'/public')));
@@ -45,7 +45,7 @@ const server=app.listen(PORT,(err)=>
 
 const io=socket(server,{
     cors:{
-        origin:'http://localhost:5000',
+        origin:'http://localhost:8000',
         credentials:'true'
     }
 })
